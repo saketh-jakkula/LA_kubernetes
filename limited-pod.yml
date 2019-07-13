@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: limited-pod1
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: sakethjakkula6422c.mylabserver.com
+  containers:
+    - image: busybox
+      name: limit
+      command: ["dd", "if=/dev/zero", "of=/dev/null"]
+      resources:
+        requests:
+          cpu: 800m
+          memory: 100M
+        limits:
+          cpu: 2
+          memory: 2G
+
+

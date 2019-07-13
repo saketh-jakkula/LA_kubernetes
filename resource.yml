@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: resource-pod3
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: "sakethjakkula6422c.mylabserver.com"
+  containers:
+    - image: busybox
+      command: ["dd", "if=/dev/zero", "of=/dev/null"]
+      name: pod1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 20M

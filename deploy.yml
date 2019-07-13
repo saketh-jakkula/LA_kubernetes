@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pv-deploy
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      volumes:
+        - name: vol-data
+          glusterfs:
+            endpoints: glusterfs
+            path: gv1
+      containers:
+        - image: nginx
+          name: nginx
+          volumeMounts:
+            - mountPath: /app
+              name: vol-data

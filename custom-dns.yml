@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dns-example
+spec:
+  containers:
+    - name: dns-example
+      image: nginx
+  dnsPolicy: "None"
+  dnsConfig:
+    nameservers:
+      - 8.8.8.8
+    searches:
+      - default.svc.cluster.local
+    options:
+      - name: ndots
+        value: "2"
+      - name: edns0

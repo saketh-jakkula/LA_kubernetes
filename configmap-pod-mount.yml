@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mount-pod
+spec:
+  volumes:
+    - name: configmapvolume
+      configMap:
+        name: appconfig
+        key: key1
+
+  containers:
+    - image: busybox
+      name: mount-cont
+      command: ['sh', '-c', "echo $(MY_VAR) && sleep 3600"]
+      volumeMounts:
+        - name: configmapvolume
+          mountPath: /etc/config
+

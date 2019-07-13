@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubeserve
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+        apps: kuberserve
+  template:
+    metadata:
+      name: kuberserve
+      labels:
+        apps: kuberserve
+    spec:
+      containers:
+        - name: app
+          image: linuxacademycontent/kubeserve:v3
+          readinessProbe:
+            periodSeconds: 1
+            httpGet:
+              path: /
+              port: 80

@@ -1,0 +1,27 @@
+apiVersion: apps/v1beta2
+kind: DaemonSet
+metadata:
+  name: deamonset-pods
+spec:
+  selector:
+    matchLabels:
+      disktype: ssd
+  template:
+    metadata:
+      name: pod
+      labels:
+        disktype: ssd
+    spec:
+      nodeSelector:
+        availability-zone: zone1
+        share-type: shared
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
+          operator: Exists
+      containers:
+        - image: nginx
+          name: nginx
+          ports:
+            - containerPort: 80
+

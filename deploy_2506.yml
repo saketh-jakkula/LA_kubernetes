@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zone1-pods
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 2
+  template:
+    metadata:
+      name: pod
+      labels:
+        app: nginx
+    spec:
+      nodeSelector:
+        availability-zone: zone1
+      containers:
+        - image: nginx
+          name: nginx
+          ports:
+            - containerPort: 80
+
+
+
+

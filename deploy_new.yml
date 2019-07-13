@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubeserve
+spec:
+  minReadySeconds: 10
+  selector:
+    matchLabels:
+      app: kubeserve
+  replicas: 3
+  template:
+    metadata:
+      name: kubeserve-pod
+      labels:
+        app: kubeserve
+        tier: backend
+    spec:
+      containers:
+        - name: kubeserve
+          image: linuxacademycontent/kubeserve:v3
+          readinessProbe:
+            periodSeconds: 1
+            httpGet:
+              path: /
+              port: 80
+
+
