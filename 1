@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: centos-pod
+spec:
+  volumes:
+    - name: cgroup
+      hostPath:
+        path: /sys/fs/cgroup
+        type: Directory
+
+  containers:
+    - name: server
+      image: centos:7
+      command: ["/usr/sbin/init"]
+      volumeMounts:
+        - name: cgroup
+          mountPath: /sys/fs/cgroup
+      securityContext:
+        privileged: True
